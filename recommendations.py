@@ -1,8 +1,9 @@
 #!/usr/bin/python -tt
 
-from chooseTies import *
+from chooseJournalists.chooseTies import *
+from useSQL import *
 
-class recommendations(chooseTies):
+class recommendations(chooseTies, useSQL):
 	def runFinal(self, list):
 		self.returnTieStrength = True
 		self.run(list)
@@ -40,14 +41,6 @@ class recommendations(chooseTies):
 
 		# sort journalists, firstly by tie strength, and then by indegree
 		self.sortedJournalists = [s[0] for s in sorted(self.alters2, key=self.mykey2,reverse=True)]
-
-	def startSQLconnection(self):
-		con = mdb.connect('localhost', 'root', 'password', 'guardian')
-		self.cur = con.cursor()
-
-	def findMaxDate(self):
-		self.cur.execute("SELECT max(date1) FROM articlesStream")
-		self.maxDate = int(self.cur.fetchall()[0][0])
 
 	def getArticles(self, alter, date):
 		# get twitter handle
