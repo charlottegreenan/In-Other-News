@@ -1,5 +1,5 @@
 
-from chooseTies import *
+from chooseJournalists.chooseTies import *
 
 class validation(chooseTies):
 	def __init__(self):
